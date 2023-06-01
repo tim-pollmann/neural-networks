@@ -10,5 +10,4 @@ class CrossEntropyLoss(Loss):
         return - np.sum(d*np.log(y))
 
     def f_prime(self, d, y):
-        print(d, y)
         return -d/y
