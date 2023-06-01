@@ -1,6 +1,7 @@
 from .layer import Layer
 import numpy as np
 
+
 class FCLayer(Layer):
     def __init__(self, input_size, output_size, activation_function):
         super().__init__(input_size, output_size, activation_function)
@@ -17,9 +18,9 @@ class FCLayer(Layer):
         e = np.dot(self.activation_function.f_prime(self.z), e)
         de_dx = np.dot(self.W.T, e)
         de_dW = np.dot(e, self.x.T)
-        de_db = e
+        de_db = self.b * e
 
         self.W -= alpha * de_dW
         self.b -= alpha * de_db
-        
+
         return de_dx
