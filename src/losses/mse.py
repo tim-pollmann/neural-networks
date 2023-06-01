@@ -7,7 +7,7 @@ class MSE(Loss):
         pass
 
     def f(self, d, y):
-        return np.mean(np.power(d-y, 2));  
+        return np.mean(np.power(d-y, 2))
 
     def f_prime(self, d, y):
-        return 2*(y-d)/d.size;
+        return 2*(y-d)/d.size

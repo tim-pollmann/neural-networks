@@ -10,4 +10,10 @@ class Tanh(ActivationFunction):
         return np.tanh(x)
 
     def f_prime(self, x):
-        return 1-np.tanh(x)**2
+        n = len(x)
+        p = 1-np.tanh(x)**2
+        result = np.zeros([n, n])
+        for i in range(n):
+                result[i, i] = p[i]
+        return result
+

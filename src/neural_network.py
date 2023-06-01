@@ -17,20 +17,21 @@ class NeuralNetwork:
 
         return result
 
-    def fit(self, x_train, y_train, epochs, learning_rate):
-        samples = len(x_train)
+    def fit(self, X_train, y_train, epochs, learning_rate):
+        samples = len(X_train)
 
         for i in range(epochs):
-            err = 0
+            error_cum = 0
             for j in range(samples):
-                output = x_train[j]
+                output = X_train[j]
                 for layer in self.layers:
                     output = layer.forward_propagation(output)
+
+                error_cum += self.loss.f(y_train[j], output)
 
                 e = self.loss.f_prime(y_train[j], output)
                 for layer in reversed(self.layers):
                     e = layer.backward_propagation(e, learning_rate)
 
-                err += self.loss.f(y_train[j], output)
-
-            print('epoch %d/%d   error=%f' % (i+1, epochs, err / samples))
+            error_epoch = error_cum / samples
+            print(f'epoch {i+1}/{epochs}   error={error_epoch}')

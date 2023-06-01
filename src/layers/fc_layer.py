@@ -14,7 +14,7 @@ class FCLayer(Layer):
         return self.a
 
     def backward_propagation(self, e, alpha):
-        e = self.activation_function.f_prime(self.z) * e
+        e = np.dot(self.activation_function.f_prime(self.z), e)
         de_dx = np.dot(self.W.T, e)
         de_dW = np.dot(e, self.x.T)
         de_db = e

@@ -1,3 +1,4 @@
+import numpy as np
 from .activation_function import ActivationFunction
 
 
@@ -9,4 +10,4 @@ class Linear(ActivationFunction):
         return x
 
     def f_prime(self, x):
-        return 1
+        return np.identity(len(x))
