@@ -3,11 +3,13 @@ from .loss import Loss
 
 
 class CrossEntropyLoss(Loss):
-    def __init__(self):
-        pass
+    def __init__(self, shape):
+        super().__init__(shape)
 
     def f(self, d, y):
-        return - np.sum(d*np.log(y[0]))
+        assert d.shape == self.shape and y.shape == self.shape, f"{d.shape}, {y.shape}, {self.shape}"
+        return - np.sum(d[0]*np.log(y[0]))
 
     def f_prime(self, d, y):
-        return -d/y[0]
+        assert d.shape == self.shape and y.shape == self.shape
+        return -d[0]/y[0]

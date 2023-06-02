@@ -3,6 +3,8 @@ class NeuralNetwork:
         for i in range(len(layers)-1):
             assert layers[i].output_size == layers[i+1].input_size
 
+        assert layers[-1].output_size == loss.shape
+
         self.layers = layers
         self.loss = loss
 
@@ -22,11 +24,11 @@ class NeuralNetwork:
 
         for i in range(epochs):
             error_cum = 0
-            if i == 250:
-                learning_rate = learning_rate / 10
+            # if i == 250:
+            #     learning_rate = learning_rate / 10
 
-            if i == 1250:
-                learning_rate = learning_rate / 10
+            # if i == 1250:
+            #     learning_rate = learning_rate / 10
 
             for j in range(samples):
                 output = X_train[j]
