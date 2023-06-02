@@ -8,7 +8,8 @@ class ConvLayer(Layer):
         self.a = None
         self.z = None
         self.x = None
-        self.kernels = np.random.rand([n_kernels, kernel_size, kernel_size]) - 0.5
+        self.kernel_size = kernel_size
+        # self.kernels = np.random.rand([n_kernels, kernel_size, kernel_size]) - 0.5
 
     def forward_propagation(self, x):
         self.x = x
@@ -21,6 +22,15 @@ class ConvLayer(Layer):
         de_dx = None
 
         return de_dx
-    
+
     def conf2d(self, matrix, kernel):
-        pass
+        output_size = self.output_size[1] - self.kernel_size + 1
+        output = np.empty([3, 3])
+        print(output)
+        offset = kernel // 2
+        for row in range(3):
+            for col in range(3):
+                sub_matrix = matrix[row:row + 3, col:col + 3]
+                output[row, col] = np.sum(sub_matrix * kernel)
+
+        return output
