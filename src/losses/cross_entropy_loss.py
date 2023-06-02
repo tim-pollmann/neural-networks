@@ -7,7 +7,7 @@ class CrossEntropyLoss(Loss):
         pass
 
     def f(self, d, y):
-        return - np.sum(d*np.log(y))
+        return - np.sum(d*np.log(y[0]))
 
     def f_prime(self, d, y):
-        return -d/y
+        return -d/y[0]

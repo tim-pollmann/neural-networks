@@ -22,8 +22,11 @@ class NeuralNetwork:
 
         for i in range(epochs):
             error_cum = 0
-            if i == 75:
-                i = i / 10
+            if i == 250:
+                learning_rate = learning_rate / 10
+
+            if i == 1250:
+                learning_rate = learning_rate / 10
 
             for j in range(samples):
                 output = X_train[j]

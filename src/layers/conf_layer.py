@@ -2,17 +2,16 @@ from .layer import Layer
 import numpy as np
 
 
-class FCLayer(Layer):
-    def __init__(self, input_size, output_size, activation_function):
+class ConfLayer(Layer):
+    def __init__(self, input_size, output_size, n_kernels, kernel_size, activation_function):
         super().__init__(input_size, output_size, activation_function)
-        self.W = np.random.rand(output_size[1], input_size[1]) - 0.5
-        self.b = np.random.rand(output_size[1], 1) - 0.5
+        self.kernels = np.random.rand([n_kernels, kernel_size, kernel_size]) - 0.5
 
     def forward_propagation(self, x):
-        self.x = x[0]
-        self.z = np.dot(self.W, self.x) + self.b
+        self.x = x
+        self.z = [self.conf2d(x, kernel) for kernel in self.kernels]
         self.a = self.activation_function.f(self.z)
-        return [self.a]
+        return self.a
 
     def backward_propagation(self, e, alpha):
         e = np.dot(self.activation_function.f_prime(self.z), e)
@@ -24,3 +23,6 @@ class FCLayer(Layer):
         self.b -= alpha * de_db
 
         return de_dx
+    
+    def conf2d(matrix, kernel):
+        pass

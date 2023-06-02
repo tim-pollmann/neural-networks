@@ -10,32 +10,34 @@ from datasets.digits import load_digits
 
 from utils.load_and_store import load_nn, store_nn
 from utils.print_results import print_ohe
+from utils.split_dataset import split_dataset
 
 
-LOAD = True
+LOAD = False
 STORE = False
 
 
 def train_digits():
     x, y = load_digits()
+    x_train, y_train, x_valid, y_valid = split_dataset(x, y)
 
     if LOAD:
         nn = load_nn('nn_digits.pkl')
     else:
         nn = NeuralNetwork(
             [
-                FCLayer(64, 256, Linear()),
-                FCLayer(256, 256, Tanh()),
-                FCLayer(256, 256, Tanh()),
-                FCLayer(256, 128, Tanh()),
-                FCLayer(128, 10, Softmax())
+                FCLayer((1, 64, 1), (1, 256, 1), Linear()),
+                FCLayer((1, 256, 1), (1, 256, 1), Tanh()),
+                FCLayer((1, 256, 1), (1, 256, 1), Tanh()),
+                FCLayer((1, 256, 1), (1, 128, 1), Tanh()),
+                FCLayer((1, 128, 1), (1, 10, 1), Softmax())
             ],
             CrossEntropyLoss()
         )
-        nn.fit(x[:-5], y[:-5], epochs=250, learning_rate=0.00001)
+        nn.fit(x_train, y_train, epochs=2000, learning_rate=0.00001)
 
-    pred = nn.predict(x[-5:])
-    print_ohe(y[-5:], pred)
+    pred = nn.predict(x_valid)
+    print_ohe(y_valid, pred)
 
     if STORE:
         store_nn(nn, 'nn_digits.pkl')
