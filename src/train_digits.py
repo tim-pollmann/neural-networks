@@ -14,14 +14,14 @@ from utils.print_results import print_ohe
 from utils.split_dataset import split_dataset
 
 
-LOAD = False
+LOAD = True
 STORE = False
 
 
 def train_digits():
     x, y = load_digits_2d()
     x_train, y_train, x_valid, y_valid = split_dataset(x, y)
-    # print(x_train[0])
+
     if LOAD:
         nn = load_nn('nn_digits.pkl')
     else:
@@ -36,7 +36,7 @@ def train_digits():
             ],
             CrossEntropyLoss((1, 10, 1))
         )
-        nn.fit(x_train, y_train, epochs=2000, learning_rate=0.00001)
+        nn.fit(x_train, y_train, epochs=200, learning_rate=0.00001)
 
     pred = nn.predict(x_valid)
     print_ohe(y_valid, pred)

@@ -19,8 +19,8 @@ class NeuralNetwork:
 
         return result
 
-    def fit(self, X_train, y_train, epochs, learning_rate):
-        samples = len(X_train)
+    def fit(self, x_train, y_train, epochs, learning_rate):
+        samples = len(x_train)
 
         for i in range(epochs):
             error_cum = 0
@@ -31,7 +31,7 @@ class NeuralNetwork:
             #     learning_rate = learning_rate / 10
 
             for j in range(samples):
-                output = X_train[j]
+                output = x_train[j]
                 for layer in self.layers:
                     output = layer.forward_propagation(output)
 

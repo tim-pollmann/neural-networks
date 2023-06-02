@@ -4,7 +4,7 @@ from .activation_function import ActivationFunction
 
 class Linear(ActivationFunction):
     def __init__(self):
-        pass
+        super().__init__()
 
     def f(self, x):
         return x

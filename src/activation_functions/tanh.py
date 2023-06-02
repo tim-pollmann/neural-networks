@@ -4,7 +4,7 @@ from .activation_function import ActivationFunction
 
 class Tanh(ActivationFunction):
     def __init__(self):
-        pass
+        super().__init__()
 
     def f(self, x):
         return np.tanh(x)

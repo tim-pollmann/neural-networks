@@ -5,7 +5,10 @@ import numpy as np
 class FCLayer(Layer):
     def __init__(self, input_size, output_size, activation_function):
         super().__init__(input_size, output_size, activation_function)
-        
+
+        self.a = None
+        self.z = None
+        self.x = None
         assert input_size[0] == 1 and input_size[2] == 1
         assert output_size[0] == 1 and output_size[2] == 1
         
